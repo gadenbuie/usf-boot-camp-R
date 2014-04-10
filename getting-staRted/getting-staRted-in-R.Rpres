@@ -1,0 +1,20 @@
+```{r setup, include=FALSE}
+opts_chunk$set(echo=T, warning=F, error=T, message=F, cache=FALSE,
+               fig.path='getting-staRted-figures/', dev='png', dpi=96,
+               tidy=T,
+               resize.height=4, fig.width=9, fig.height=6)
+options(width=80, digits=3)
+```
+
+getting staRted in R
+========================================================
+author: Garrick Aden-Buie // April 11, 2014
+date: INFORMS Code & Data Boot Camp
+transition: linear
+navigation: slide
+font-family: 'Avenir Next', 'Verdana'
+autosize: true
+
+First Slide
+=========================================================
+type: section
