@@ -1,15 +1,9 @@
+% Doing Data Science in R
+% Garrick Aden-Buie // April 11, 2014
+% INFORMS Code & Data Boot Camp
 
 
 
-doing data science in R
-========================================================
-author: Garrick Aden-Buie // April 11, 2014
-date: INFORMS Code & Data Boot Camp
-transition: linear
-navigation: slide
-font-family: 'Avenir Next', 'Verdana'
-autosize: true
 
-First Slide
-=========================================================
-type: section
+
+## Today we'll talk about

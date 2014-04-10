@@ -2,10 +2,13 @@
 % Garrick Aden-Buie // April 11, 2014
 % INFORMS Code & Data Boot Camp
 
-
-
-
-
+```{r setup, include=FALSE}
+opts_chunk$set(echo=T, warning=F, error=T, message=F, cache=FALSE,
+               fig.path='getting-staRted-figures/', dev='png', dpi=96,
+               tidy=F,
+               resize.height=4, fig.width=9, fig.height=6)
+options(width=80, digits=3)
+```
 
 
 ## Today we'll talk about
@@ -101,31 +104,11 @@
 
 ## Take it for a quick spin
 
-
-```r
+```{r easy-stuff}
 3+3
-```
-
-```
-## [1] 6
-```
-
-```r
 sqrt(4^4)
-```
-
-```
-## [1] 16
-```
-
-```r
 2==2
 ```
-
-```
-## [1] TRUE
-```
-
 
 ## Setting up RStudio
 
@@ -141,6 +124,7 @@ sqrt(4^4)
 
 - Every R packages comes with documentation and examples
     - Try `?summary` and `??regression`
+    - RStudio + tab completion = FTW!
 
 - Get help online
     - [StackExchange](http://stackexchange.com)
@@ -209,25 +193,12 @@ Find packages on [CRAN](http://cran.r-project.org/) or [Rdocumentation](http://w
 
 ## Key Symbols
 
-
-```r
+```{r key-symbols}
 x <- 10         # Assigment operator
 y <- 1:x        # Sequence
 y[2]            # Element selection
-```
-
-```
-## [1] 2
-```
-
-```r
 "str" == 'str'  # Strings
 ```
-
-```
-## [1] TRUE
-```
-
 
 ## Functions
 
@@ -235,18 +206,12 @@ Functions have the form `functionName(arg1, arg2, ...)` and arguments always go 
 
 Define a function:
 
-
-```r
+```{r functions}
 fun <- function(x=0){
   return(x+42)
 }
 fun(8)
 ```
-
-```
-## [1] 50
-```
-
 
 ## Data types
 
@@ -262,162 +227,75 @@ factor()    # factor
 
 You can check to see what type a variable is with `class(x)` or `is.numeric()`.
 
-# Data structures
+# Data Structures
 
 ## Vectors
 
 Basic data type is a vector, built with `c()` for **concatenate**.
 
-
-```r
+```{r}
 x <- c(1, 2, 3, 4, 5)
 y <- c(6:10)
 ```
-
 
 
 ## Matrices: binding vectors
 
 Matrices can be built by row binding or column binding vectors:
 
-
-```r
+```{r}
 cbind(x,y)   # 5 x 2 matrix
-```
-
-```
-##      x  y
-## [1,] 1  6
-## [2,] 2  7
-## [3,] 3  8
-## [4,] 4  9
-## [5,] 5 10
-```
-
-```r
 rbind(x,y)   # 2 x 5 matrix
 ```
-
-```
-##   [,1] [,2] [,3] [,4] [,5]
-## x    1    2    3    4    5
-## y    6    7    8    9   10
-```
-
 
 ## Matrices: matrix function
 
 Or you can build a matrix using the `matrix()` function:
 
-
-```r
+```{r matrix}
 matrix(1:10, nrow=2, ncol=5, byrow=TRUE)
 ```
-
-```
-##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    2    3    4    5
-## [2,]    6    7    8    9   10
-```
-
 
 ## Coercion
 
 Vectors and matrices need to have elements of the same type, so R pushes mismatched elements to the best common type.
 
-
-```r
+```{r}
 c('a', 2)
-```
-
-```
-## [1] "a" "2"
-```
-
-```r
 c(1L, 1.0)
-```
-
-```
-## [1] 1 1
-```
-
-```r
 c(1L, 1.1)
 ```
-
-```
-## [1] 1.0 1.1
-```
-
 
 
 ## Recycling
 
 Recycling occurs when a vector has mismatched dimensions. R will fill in dimensions by *repeating* a vector from the beginning.
 
-
-```r
+```{r}
 matrix(1:5, nrow=2, ncol=5, byrow=FALSE)
 ```
-
-```
-##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    3    5    2    4
-## [2,]    2    4    1    3    5
-```
-
 
 
 ## Factors
 
 Factors are a special (at times frustrating) data type in R.
 
-
-```r
+```{r}
 x <- rep(1:3, 2)
 x
-```
-
-```
-## [1] 1 2 3 1 2 3
-```
-
-```r
 x <- factor(x, levels=c(1, 2, 3), 
             labels=c('Bad', 'Good', 'Best'))
 x
 ```
 
-```
-## [1] Bad  Good Best Bad  Good Best
-## Levels: Bad Good Best
-```
-
-
 ## Ordering factors
 
 Order of factors is important for things like plot type, output, etc. Also factors are really two things tied together: the data itself and the labels.
 
-
-```r
+```{r}
 x[order(x)]
-```
-
-```
-## [1] Bad  Bad  Good Good Best Best
-## Levels: Bad Good Best
-```
-
-```r
 x[order(x, decreasing=T)]
 ```
-
-```
-## [1] Best Best Good Good Bad  Bad 
-## Levels: Bad Good Best
-```
-
 
 ## Ordering factor labels
 
@@ -425,25 +303,10 @@ That reordered the elements of `x`, but not the factor levels.
 
 Compare:
 
-
-```r
+```{r}
 factor(x, levels=c('Best', 'Good', 'Bad'))
-```
-
-```
-## [1] Bad  Good Best Bad  Good Best
-## Levels: Best Good Bad
-```
-
-```r
 factor(x, labels=c('Best', 'Good', 'Bad'))
 ```
-
-```
-## [1] Best Good Bad  Best Good Bad 
-## Levels: Best Good Bad
-```
-
 
 ## Squashing factors
 
@@ -451,98 +314,44 @@ What if you want your drop the "factor" and keep the data?
 
 **Keep the numbers**
 
-
-```r
+```{r}
 as.numeric(x)
 ```
 
-```
-## [1] 1 2 3 1 2 3
-```
-
-
 **Keep the labels**
 
-
-```r
+```{r}
 as.character(x)
 ```
-
-```
-## [1] "Bad"  "Good" "Best" "Bad"  "Good" "Best"
-```
-
 
 ## Lists
 
 Lists are arbitrary collections of objects. They don't have to be the same type or element or have the same dimensions.
 
-
-```r
+```{r}
 mylist <-  list(vec = 1:5, str = "Strings!")
 mylist
 ```
-
-```
-## $vec
-## [1] 1 2 3 4 5
-## 
-## $str
-## [1] "Strings!"
-```
-
 
 ## Finding list elements
 
 Use double brackets to return the list item or the `$` operator.
 
-
-```r
+```{r}
 mylist[[1]]
-```
-
-```
-## [1] 1 2 3 4 5
-```
-
-```r
 mylist$str
-```
-
-```
-## [1] "Strings!"
-```
-
-```r
 mylist$vec[2]
 ```
-
-```
-## [1] 2
-```
-
 
 ## Data frames
 
 Data frames are like matrices, but better. Column vectors are *not* required to be the same type, so they can handle diverse data.
 
-
-```r
+```{r}
 require(ggplot2)
 data(diamonds, 'ggplot2')
 head(diamonds)
 ```
-
-```
-##   carat       cut color clarity depth table price    x    y    z
-## 1  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
-## 2  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
-## 3  0.23      Good     E     VS1  56.9    65   327 4.05 4.07 2.31
-## 4  0.29   Premium     I     VS2  62.4    58   334 4.20 4.23 2.63
-## 5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
-## 6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48
-```
-
 
 
 

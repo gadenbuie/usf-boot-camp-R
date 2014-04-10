@@ -1,15 +1,9 @@
+% Reporting Reproducible Research with R and Markdown
+% Garrick Aden-Buie // April 11, 2014
+% INFORMS Code & Data Boot Camp
 
 
 
-reporting reproducible reseaRch
-========================================================
-author: Garrick Aden-Buie // April 11, 2014
-date: INFORMS Code & Data Boot Camp
-transition: linear
-navigation: slide
-font-family: 'Avenir Next', 'Verdana'
-autosize: true
 
-First Slide
-=========================================================
-type: section
+
+## Today we'll talk about
