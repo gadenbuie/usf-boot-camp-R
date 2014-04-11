@@ -4,24 +4,29 @@
 
 ```{r setup, include=FALSE}
 opts_chunk$set(echo=T, warning=F, error=T, message=F, cache=FALSE,
-               fig.path='getting-staRted-figures/', dev='png', dpi=96,
-               tidy=F,
-               resize.height=4, fig.width=9, fig.height=6)
+               fig.path='getting-staRted-figures/', dev='png', dpi=96, par=TRUE,
+               tidy=F, prompt=F, collapse=T,
+               resize.height=4, fig.width=7, fig.height=5)
 options(width=80, digits=3)
+
+knit_hooks$set(par=function(before, options, envir){
+if (before && options$fig.show!='none'){
+  par(mar=c(5,4,1,1), bg='white')
+  }
+})
+
 ```
 
 
 ## Today we'll talk about
+
+**Files and links in one place: <http://bit.ly/1qjZg55>**
 
 - The R Universe
 - Getting set up
 - Working with data
 - Base functions
 - Where to go from here
-
-### Files and links in one place
-
-`http://bit.ly/1qjZg55`
 
 
 # The R Universe
@@ -50,7 +55,9 @@ options(width=80, digits=3)
     
 - Among the highest-paying IT skills on the market
     - [2014 Dice Tech Salary Survey](http://blog.revolutionanalytics.com/2014/02/r-salary-surveys.html)
-  
+
+- So many cool projects and tools that make it easy to collaborate with others and publish your work
+
 ## Pros of using R
 
 - Available on any platform
@@ -77,6 +84,8 @@ options(width=80, digits=3)
   
 ## Some R Vocab
 
+\footnotesize
+
 | Term              | Description                                     |
 |-------------------+-------------------------------------------------|
 | console, terminal | The "main" portal to R where you enter commands |
@@ -87,6 +96,7 @@ options(width=80, digits=3)
 | vector            | The basic unit of data in R                     |
 | dataframe         | Data organized into rows and columns            |
 
+<http://adv-r.had.co.nz/Vocabulary.html>
 
 ## The R Console
 
@@ -156,7 +166,7 @@ getwd()
 Install packages[^1]
 
 ```r
-install.packages(ggplot2)
+install.packages('ggplot2')
 ```
 
 Load packages
@@ -171,7 +181,7 @@ Find packages on [CRAN](http://cran.r-project.org/) or [Rdocumentation](http://w
 ?ggplot
 ```
 
-[^1]: Windows users need to run RStudio with System Administrator privileges.
+[^1]: Windows 7+ users need to run RStudio with System Administrator privileges.
 
 
 # Basics of the language
@@ -187,8 +197,8 @@ Find packages on [CRAN](http://cran.r-project.org/) or [Rdocumentation](http://w
 42 >= 2
 2 <= 42
 2 != 42
-23 %/% 2
-23 %% 2
+23 %/% 2   # Integer division -> 11
+23 %% 2    # Remainder -> 1
 ```
 
 ## Key Symbols
@@ -208,6 +218,7 @@ Define a function:
 
 ```{r functions}
 fun <- function(x=0){
+  # Adds 42 to the input number
   return(x+42)
 }
 fun(8)
@@ -234,10 +245,37 @@ You can check to see what type a variable is with `class(x)` or `is.numeric()`.
 Basic data type is a vector, built with `c()` for **concatenate**.
 
 ```{r}
-x <- c(1, 2, 3, 4, 5)
-y <- c(6:10)
+x <- c(1, 2, 3, 4, 5); x
+y <- c(6:10); y
 ```
 
+
+## Working with vectors
+
+```{r working-with-vectors}
+a <- sample(1:5, 10, replace=TRUE)
+length(a)
+unique(a)
+length(unique(a))
+a * 2
+```
+
+
+## Strings
+
+Strings use either the `' '` or the `" "` characters.
+
+```{r strings}
+mystr <- 'Glad you\'re here'
+print(mystr)
+```
+
+Use `paste()` to concatenate strings, not `c()`.
+
+```{r strings2}
+paste(mystr, '!', sep='')
+c(mystr, '!')
+```
 
 ## Matrices: binding vectors
 
@@ -312,7 +350,9 @@ factor(x, labels=c('Best', 'Good', 'Bad'))
 
 What if you want your drop the "factor" and keep the data?
 
-**Keep the numbers**
+**Keep the numbers**[^numfac]
+
+[^numfac]: Risky, order matters!
 
 ```{r}
 as.numeric(x)
@@ -347,15 +387,364 @@ mylist$vec[2]
 
 Data frames are like matrices, but better. Column vectors are *not* required to be the same type, so they can handle diverse data.
 
-```{r}
+```{r df-diamonds, results='hide'}
 require(ggplot2)
-data(diamonds, 'ggplot2')
+data(diamonds, package='ggplot2')
 head(diamonds)
 ```
 
+\footnotesize
+
+```{r df-diamonds2, results='asis', echo=FALSE}
+kable(head(diamonds))
+```
 
 
+## Building a data frame
 
+Data frames require vectors of the same dimension, but not the same type.
+
+```{r dataframes}
+mydf <- data.frame(My.Numbers = sample(1:10, 6),
+                   My.Factors = x)
+mydf
+```
+
+
+## Naming columns and rows
+
+Data frames and matrices can have named rows and columns.
+
+```{r names}
+names(mydf)
+```
+
+```r
+colnames(mydf) <- c('Num', 'Fak')  # Set column names
+rownames(mydf)                     # Same for rows
+```
+
+To find the dimensions of a matrix or data frame (*rows*, *cols*):
+
+```{r dim}
+dim(mydf)
+```
+
+
+## Reading and writing data in data frames
+
+R works well with Excel and CSV files, among many others. I usually work with CSV, but that's mostly personal preference.
+
+**Reading data**
+
+```r
+mydata <- read.csv('filename.csv', header=T)
+```
+
+**Writing data**
+
+```r
+write.csv(mydata, 'filename.csv')
+```
+
+
+# Control structures
+
+## `if`, `else if`, `else`
+
+```{r ifelse}
+a <- 10
+if(a > 11){
+  print('Bigger!')
+} else if(a < 9){
+  print('Smaller!')
+} else {
+  print('On the money!')
+}
+```
+
+## `for` loops
+
+```{r for}
+z <- c()
+for(i in 1:10){
+  z <- c(z, i^2)
+}
+z
+```
+
+## `while` loops
+
+```{r while}
+z <- c()
+i <- 1
+
+while(i <= 5){
+  z <- c(z, i^3)
+  i <- i+1
+}
+
+z
+```
+
+
+# Manipulating data
+
+## `mtcars` data frame
+
+R includes a number of datasets in the package `datasets` including `mtcars`. Try `?mtcars` to learn more. The data was extracted from the 1974 issue of *Motor Trend*. 
+
+If entering `mtcars` doesn't work, run `data(mtcars)` first.
+
+```{r mtcars1, results='hide'}
+head(mtcars)
+```
+
+\tiny
+
+```{r mtcars, results='asis', echo=FALSE}
+kable(head(mtcars))
+```
+
+## Selecting rows and columns
+
+\footnotesize
+
+Rows and columns are selected using brackets:
+
+```r
+dataframe[<row conditions>, <column conditions>]
+```
+
+For example, `mtcars[1,2]` returns row 1, column 2:
+
+```{r row-col}
+mtcars[1,2]
+```
+
+Select a whole row by leaving the column blank
+
+```{r row}
+mtcars[1,]
+```
+
+or similarly select a column by leaving the row condition blank
+
+```{r col,}
+mtcars[,'qsec'][1:10]
+```
+
+## More ways to select rows and columns
+
+```r
+mtcars[-1,]               # Drop first row
+mtcars[, -2:-4]           # Drop columns 2-4
+mtcars[, c('mpg', 'cyl')] # Only mpg and cyl columns
+mtcars[c(1,5,8,10),'am']
+mtcars['Valiant',]        # Works when rows have names
+mtcars$mpg                # Select 'mpg' col
+mtcars[[1]]               # Same
+mtcars[['mpg']]           # Also the same
+mtcars$mpg[1:5]           # == mtcars[1:5, 'mpg']
+```
+
+## Subsetting
+
+What if you want to look at the gas guzzlers only?
+
+```{r gas-guzzle, results='hide'}
+gas_guzzlers <- mtcars[mtcars$mpg < 20,]
+head(gas_guzzlers)
+```
+
+\tiny
+
+```{r gas-guzzle-table, results='asis', echo=FALSE}
+kable(head(gas_guzzlers))
+```
+
+## Subsetting
+
+Or 6-cylinder gas guzzlers only...
+
+```{r gas-guzzle6, results='hide'}
+gas_guzzlers <- mtcars[mtcars$mpg < 20 & mtcars$cyl == 6,]
+head(gas_guzzlers)
+```
+
+\tiny
+
+```{r gas-guzzle-table6, results='asis', echo=FALSE}
+kable(head(gas_guzzlers))
+```
+
+## Setting values based on subsets
+
+Create a new column for speed class based on quarter mile time.
+
+```{r qsec}
+mtcars[mtcars$qsec < 17, 'Class'] <- 'Slow'
+mtcars[mtcars$qsec > 17, 'Class'] <- 'Medium'
+mtcars[mtcars$qsec > 20, 'Class'] <- 'Fast'
+table(mtcars$Class)
+```
+
+Any expression that evaluates to `TRUE` or `FALSE` can be used as a column or row condition.
+
+```{r tf}
+mtcars$qsec[1:10] > 17
+```
+
+## Dealing with missing values
+
+Missing values show up as `NA`s, which is actually a data type.
+
+```{r missing}
+foo <- c(1.2, NA, 2.4, 6.2, 8.3)
+bar <- c(9.1, 7.6, NA, 1.1, 4.7)
+fb <- cbind(foo, bar)
+fb[complete.cases(fb),]
+foo[!is.na(foo)]
+```
+
+# Base functions
+
+## All around great functions: `summary`
+
+**Summarize just about anything**
+
+```{r summary, width=60}
+summary(mtcars[,1:3])
+```
+
+## All around great functions: `str`
+
+**"Quick look" function**
+
+\footnotesize
+
+```{r str}
+str(mtcars)
+```
+
+## All around great functions: `attributes`
+
+**Learn more about the object**
+
+\footnotesize
+
+```{r attribute}
+attributes(mtcars[1:10,])
+```
+
+## All around great functions: `table`
+
+**Quick and dirty tables**
+
+```{r tables}
+table(mtcars$cyl, mtcars$gear)
+```
+
+## Basic functions for vectors
+
+```r
+sum()   
+mean()  
+sd()     # standard deviation
+max()
+min()
+median()
+range()
+rev()    # reverse
+unique() # unique elements
+length()
+```
+
+# Visualizing data
+
+## Plotting points
+
+```{r plot-points, fig.cap=''}
+plot(mtcars$wt, mtcars$mpg,
+     xlab='Weight', ylab='MPG')
+```
+
+## Plotting lines
+
+```{r lines, fig.cap=''}
+plot(presidents, type='l',
+     xlab = 'Approval Rating')
+```
+
+## Histograms
+
+```{r hist, fig.cap=''}
+par(mar=c(5,4,1,1), bg='white')
+hist(mtcars$qsec, xlab='Quarter Mile Time')
+```
+
+## Bar plots
+
+```{r barplot, fig.cap=''}
+barplot(table(mtcars$Class))
+```
+
+# Base stats information
+
+## `r*`, `p*`, `q*`, `d*` functions
+
+For all of the statistical distributions, R uses the following naming conventions (incredible how useful this is!):
+
+- `d*` = density/mass function
+- `p*` = cumulative distribution function
+- `q*` = quantile function
+- `r*` = random variate generation
+
+There are quite a few distributions available in base R packages. Just run `?Distributions` to see a full list.
+
+## `rnorm()` example
+
+```{r rnorm, fig.cap=''}
+hist(rnorm(100))
+```
+
+
+## Better than base packages
+
+- Manipulating data
+    - [ddply] and [plyr] and now [dplyr]
+- Visualizing data
+    - [ggplot2]
+- Reporting data
+    - [knitr]
+- Interactive online R sessions
+    - [shiny]
+    
+[ddply]: http://cran.r-project.org/web/packages/plyr/plyr.pdf
+[plyr]: http://plyr.had.co.nz/
+[dplyr]: http://blog.rstudio.org/2014/01/17/introducing-dplyr/
+[ggplot2]: http://ggplot2.org/
+[knitr]: http://yihui.name/knitr/
+[shiny]: http://www.rstudio.com/shiny/
+
+
+# Go ExploR
+
+## Resources for learning more
+
+- [Advanced R Programming](http://adv-r.had.co.nz/) 
+    - By one of the best and most important R developers.
+
+- [TwoTorials](http://www.twotorials.com/)
+    - Quick two minute videos on doing things in R.
+
+- [An R Meta Book](http://blog.revolutionanalytics.com/2014/03/an-r-meta-book.html)
+    - A collection of online books.
+
+- [R Bloggers](http://www.r-bloggers.com/)
+    - A mailing list and central hub of all things online regarding R.
+
+# Thanks!
 
 
 

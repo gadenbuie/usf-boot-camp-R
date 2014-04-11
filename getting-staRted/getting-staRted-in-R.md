@@ -6,19 +6,15 @@
 
 
 
-
-
 ## Today we'll talk about
+
+**Files and links in one place: <http://bit.ly/1qjZg55>**
 
 - The R Universe
 - Getting set up
 - Working with data
 - Base functions
 - Where to go from here
-
-### Files and links in one place
-
-`http://bit.ly/1qjZg55`
 
 
 # The R Universe
@@ -47,7 +43,9 @@
     
 - Among the highest-paying IT skills on the market
     - [2014 Dice Tech Salary Survey](http://blog.revolutionanalytics.com/2014/02/r-salary-surveys.html)
-  
+
+- So many cool projects and tools that make it easy to collaborate with others and publish your work
+
 ## Pros of using R
 
 - Available on any platform
@@ -74,6 +72,8 @@
   
 ## Some R Vocab
 
+\footnotesize
+
 | Term              | Description                                     |
 |-------------------+-------------------------------------------------|
 | console, terminal | The "main" portal to R where you enter commands |
@@ -84,6 +84,7 @@
 | vector            | The basic unit of data in R                     |
 | dataframe         | Data organized into rows and columns            |
 
+<http://adv-r.had.co.nz/Vocabulary.html>
 
 ## The R Console
 
@@ -141,6 +142,7 @@ sqrt(4^4)
 
 - Every R packages comes with documentation and examples
     - Try `?summary` and `??regression`
+    - RStudio + tab completion = FTW!
 
 - Get help online
     - [StackExchange](http://stackexchange.com)
@@ -172,7 +174,7 @@ getwd()
 Install packages[^1]
 
 ```r
-install.packages(ggplot2)
+install.packages('ggplot2')
 ```
 
 Load packages
@@ -187,7 +189,7 @@ Find packages on [CRAN](http://cran.r-project.org/) or [Rdocumentation](http://w
 ?ggplot
 ```
 
-[^1]: Windows users need to run RStudio with System Administrator privileges.
+[^1]: Windows 7+ users need to run RStudio with System Administrator privileges.
 
 
 # Basics of the language
@@ -203,8 +205,8 @@ Find packages on [CRAN](http://cran.r-project.org/) or [Rdocumentation](http://w
 42 >= 2
 2 <= 42
 2 != 42
-23 %/% 2
-23 %% 2
+23 %/% 2   # Integer division -> 11
+23 %% 2    # Remainder -> 1
 ```
 
 ## Key Symbols
@@ -238,6 +240,7 @@ Define a function:
 
 ```r
 fun <- function(x=0){
+  # Adds 42 to the input number
   return(x+42)
 }
 fun(8)
@@ -262,7 +265,7 @@ factor()    # factor
 
 You can check to see what type a variable is with `class(x)` or `is.numeric()`.
 
-# Data structures
+# Data Structures
 
 ## Vectors
 
@@ -270,10 +273,94 @@ Basic data type is a vector, built with `c()` for **concatenate**.
 
 
 ```r
-x <- c(1, 2, 3, 4, 5)
-y <- c(6:10)
+x <- c(1, 2, 3, 4, 5); x
 ```
 
+```
+## [1] 1 2 3 4 5
+```
+
+```r
+y <- c(6:10); y
+```
+
+```
+## [1]  6  7  8  9 10
+```
+
+
+
+## Working with vectors
+
+
+```r
+a <- sample(1:5, 10, replace=TRUE)
+length(a)
+```
+
+```
+## [1] 10
+```
+
+```r
+unique(a)
+```
+
+```
+## [1] 1 3 5 2
+```
+
+```r
+length(unique(a))
+```
+
+```
+## [1] 4
+```
+
+```r
+a * 2
+```
+
+```
+##  [1]  2  2  6 10 10 10  4  6  2 10
+```
+
+
+
+## Strings
+
+Strings use either the `' '` or the `" "` characters.
+
+
+```r
+mystr <- 'Glad you\'re here'
+print(mystr)
+```
+
+```
+## [1] "Glad you're here"
+```
+
+
+Use `paste()` to concatenate strings, not `c()`.
+
+
+```r
+paste(mystr, '!', sep='')
+```
+
+```
+## [1] "Glad you're here!"
+```
+
+```r
+c(mystr, '!')
+```
+
+```
+## [1] "Glad you're here" "!"
+```
 
 
 ## Matrices: binding vectors
@@ -449,7 +536,9 @@ factor(x, labels=c('Best', 'Good', 'Bad'))
 
 What if you want your drop the "factor" and keep the data?
 
-**Keep the numbers**
+**Keep the numbers**[^numfac]
+
+[^numfac]: Risky, order matters!
 
 
 ```r
@@ -529,24 +618,559 @@ Data frames are like matrices, but better. Column vectors are *not* required to 
 
 ```r
 require(ggplot2)
-data(diamonds, 'ggplot2')
+data(diamonds, package='ggplot2')
 head(diamonds)
 ```
 
+
+\footnotesize
+
+|  carat|cut        |color  |clarity  |  depth|  table|  price|     x|     y|     z|
+|------:|:----------|:------|:--------|------:|------:|------:|-----:|-----:|-----:|
+|   0.23|Ideal      |E      |SI2      |   61.5|     55|    326|  3.95|  3.98|  2.43|
+|   0.21|Premium    |E      |SI1      |   59.8|     61|    326|  3.89|  3.84|  2.31|
+|   0.23|Good       |E      |VS1      |   56.9|     65|    327|  4.05|  4.07|  2.31|
+|   0.29|Premium    |I      |VS2      |   62.4|     58|    334|  4.20|  4.23|  2.63|
+|   0.31|Good       |J      |SI2      |   63.3|     58|    335|  4.34|  4.35|  2.75|
+|   0.24|Very Good  |J      |VVS2     |   62.8|     57|    336|  3.94|  3.96|  2.48|
+
+
+
+## Building a data frame
+
+Data frames require vectors of the same dimension, but not the same type.
+
+
+```r
+mydf <- data.frame(My.Numbers = sample(1:10, 6),
+                   My.Factors = x)
+mydf
 ```
-##   carat       cut color clarity depth table price    x    y    z
-## 1  0.23     Ideal     E     SI2  61.5    55   326 3.95 3.98 2.43
-## 2  0.21   Premium     E     SI1  59.8    61   326 3.89 3.84 2.31
-## 3  0.23      Good     E     VS1  56.9    65   327 4.05 4.07 2.31
-## 4  0.29   Premium     I     VS2  62.4    58   334 4.20 4.23 2.63
-## 5  0.31      Good     J     SI2  63.3    58   335 4.34 4.35 2.75
-## 6  0.24 Very Good     J    VVS2  62.8    57   336 3.94 3.96 2.48
+
+```
+##   My.Numbers My.Factors
+## 1          5        Bad
+## 2          9       Good
+## 3          8       Best
+## 4          3        Bad
+## 5          2       Good
+## 6         10       Best
 ```
 
 
 
+## Naming columns and rows
+
+Data frames and matrices can have named rows and columns.
 
 
+```r
+names(mydf)
+```
+
+```
+## [1] "My.Numbers" "My.Factors"
+```
+
+
+```r
+colnames(mydf) <- c('Num', 'Fak')  # Set column names
+rownames(mydf)                     # Same for rows
+```
+
+To find the dimensions of a matrix or data frame (*rows*, *cols*):
+
+
+```r
+dim(mydf)
+```
+
+```
+## [1] 6 2
+```
+
+
+
+## Reading and writing data in data frames
+
+R works well with Excel and CSV files, among many others. I usually work with CSV, but that's mostly personal preference.
+
+**Reading data**
+
+```r
+mydata <- read.csv('filename.csv', header=T)
+```
+
+**Writing data**
+
+```r
+write.csv(mydata, 'filename.csv')
+```
+
+
+# Control structures
+
+## `if`, `else if`, `else`
+
+
+```r
+a <- 10
+if(a > 11){
+  print('Bigger!')
+} else if(a < 9){
+  print('Smaller!')
+} else {
+  print('On the money!')
+}
+```
+
+```
+## [1] "On the money!"
+```
+
+
+## `for` loops
+
+
+```r
+z <- c()
+for(i in 1:10){
+  z <- c(z, i^2)
+}
+z
+```
+
+```
+##  [1]   1   4   9  16  25  36  49  64  81 100
+```
+
+
+## `while` loops
+
+
+```r
+z <- c()
+i <- 1
+
+while(i <= 5){
+  z <- c(z, i^3)
+  i <- i+1
+}
+
+z
+```
+
+```
+## [1]   1   8  27  64 125
+```
+
+
+
+# Manipulating data
+
+## `mtcars` data frame
+
+R includes a number of datasets in the package `datasets` including `mtcars`. Try `?mtcars` to learn more. The data was extracted from the 1974 issue of *Motor Trend*. 
+
+If entering `mtcars` doesn't work, run `data(mtcars)` first.
+
+
+```r
+head(mtcars)
+```
+
+
+\tiny
+
+|id                 |   mpg|  cyl|  disp|   hp|  drat|    wt|  qsec|  vs|  am|  gear|  carb|
+|:------------------|-----:|----:|-----:|----:|-----:|-----:|-----:|---:|---:|-----:|-----:|
+|Mazda RX4          |  21.0|    6|   160|  110|  3.90|  2.62|  16.5|   0|   1|     4|     4|
+|Mazda RX4 Wag      |  21.0|    6|   160|  110|  3.90|  2.88|  17.0|   0|   1|     4|     4|
+|Datsun 710         |  22.8|    4|   108|   93|  3.85|  2.32|  18.6|   1|   1|     4|     1|
+|Hornet 4 Drive     |  21.4|    6|   258|  110|  3.08|  3.21|  19.4|   1|   0|     3|     1|
+|Hornet Sportabout  |  18.7|    8|   360|  175|  3.15|  3.44|  17.0|   0|   0|     3|     2|
+|Valiant            |  18.1|    6|   225|  105|  2.76|  3.46|  20.2|   1|   0|     3|     1|
+
+
+## Selecting rows and columns
+
+\footnotesize
+
+Rows and columns are selected using brackets:
+
+```r
+dataframe[<row conditions>, <column conditions>]
+```
+
+For example, `mtcars[1,2]` returns row 1, column 2:
+
+
+```r
+mtcars[1,2]
+```
+
+```
+## [1] 6
+```
+
+
+Select a whole row by leaving the column blank
+
+
+```r
+mtcars[1,]
+```
+
+```
+##           mpg cyl disp  hp drat   wt qsec vs am gear carb
+## Mazda RX4  21   6  160 110  3.9 2.62 16.5  0  1    4    4
+```
+
+
+or similarly select a column by leaving the row condition blank
+
+
+```r
+mtcars[,'qsec'][1:10]
+```
+
+```
+##  [1] 16.5 17.0 18.6 19.4 17.0 20.2 15.8 20.0 22.9 18.3
+```
+
+
+## More ways to select rows and columns
+
+```r
+mtcars[-1,]               # Drop first row
+mtcars[, -2:-4]           # Drop columns 2-4
+mtcars[, c('mpg', 'cyl')] # Only mpg and cyl columns
+mtcars[c(1,5,8,10),'am']
+mtcars['Valiant',]        # Works when rows have names
+mtcars$mpg                # Select 'mpg' col
+mtcars[[1]]               # Same
+mtcars[['mpg']]           # Also the same
+mtcars$mpg[1:5]           # == mtcars[1:5, 'mpg']
+```
+
+## Subsetting
+
+What if you want to look at the gas guzzlers only?
+
+
+```r
+gas_guzzlers <- mtcars[mtcars$mpg < 20,]
+head(gas_guzzlers)
+```
+
+
+\tiny
+
+|id                 |   mpg|  cyl|  disp|   hp|  drat|    wt|  qsec|  vs|  am|  gear|  carb|
+|:------------------|-----:|----:|-----:|----:|-----:|-----:|-----:|---:|---:|-----:|-----:|
+|Hornet Sportabout  |  18.7|    8|   360|  175|  3.15|  3.44|  17.0|   0|   0|     3|     2|
+|Valiant            |  18.1|    6|   225|  105|  2.76|  3.46|  20.2|   1|   0|     3|     1|
+|Duster 360         |  14.3|    8|   360|  245|  3.21|  3.57|  15.8|   0|   0|     3|     4|
+|Merc 280           |  19.2|    6|   168|  123|  3.92|  3.44|  18.3|   1|   0|     4|     4|
+|Merc 280C          |  17.8|    6|   168|  123|  3.92|  3.44|  18.9|   1|   0|     4|     4|
+|Merc 450SE         |  16.4|    8|   276|  180|  3.07|  4.07|  17.4|   0|   0|     3|     3|
+
+
+## Subsetting
+
+Or 6-cylinder gas guzzlers only...
+
+
+```r
+gas_guzzlers <- mtcars[mtcars$mpg < 20 & mtcars$cyl == 6,]
+head(gas_guzzlers)
+```
+
+
+\tiny
+
+|id            |   mpg|  cyl|  disp|   hp|  drat|    wt|  qsec|  vs|  am|  gear|  carb|
+|:-------------|-----:|----:|-----:|----:|-----:|-----:|-----:|---:|---:|-----:|-----:|
+|Valiant       |  18.1|    6|   225|  105|  2.76|  3.46|  20.2|   1|   0|     3|     1|
+|Merc 280      |  19.2|    6|   168|  123|  3.92|  3.44|  18.3|   1|   0|     4|     4|
+|Merc 280C     |  17.8|    6|   168|  123|  3.92|  3.44|  18.9|   1|   0|     4|     4|
+|Ferrari Dino  |  19.7|    6|   145|  175|  3.62|  2.77|  15.5|   0|   1|     5|     6|
+
+
+## Setting values based on subsets
+
+Create a new column for speed class based on quarter mile time.
+
+
+```r
+mtcars[mtcars$qsec < 17, 'Class'] <- 'Slow'
+mtcars[mtcars$qsec > 17, 'Class'] <- 'Medium'
+mtcars[mtcars$qsec > 20, 'Class'] <- 'Fast'
+table(mtcars$Class)
+```
+
+```
+## 
+##   Fast Medium   Slow 
+##      3     20      9
+```
+
+
+Any expression that evaluates to `TRUE` or `FALSE` can be used as a column or row condition.
+
+
+```r
+mtcars$qsec[1:10] > 17
+```
+
+```
+##  [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE
+```
+
+
+## Dealing with missing values
+
+Missing values show up as `NA`s, which is actually a data type.
+
+
+```r
+foo <- c(1.2, NA, 2.4, 6.2, 8.3)
+bar <- c(9.1, 7.6, NA, 1.1, 4.7)
+fb <- cbind(foo, bar)
+fb[complete.cases(fb),]
+```
+
+```
+##      foo bar
+## [1,] 1.2 9.1
+## [2,] 6.2 1.1
+## [3,] 8.3 4.7
+```
+
+```r
+foo[!is.na(foo)]
+```
+
+```
+## [1] 1.2 2.4 6.2 8.3
+```
+
+
+# Base functions
+
+## All around great functions: `summary`
+
+**Summarize just about anything**
+
+
+```r
+summary(mtcars[,1:3])
+```
+
+```
+##       mpg            cyl            disp    
+##  Min.   :10.4   Min.   :4.00   Min.   : 71  
+##  1st Qu.:15.4   1st Qu.:4.00   1st Qu.:121  
+##  Median :19.2   Median :6.00   Median :196  
+##  Mean   :20.1   Mean   :6.19   Mean   :231  
+##  3rd Qu.:22.8   3rd Qu.:8.00   3rd Qu.:326  
+##  Max.   :33.9   Max.   :8.00   Max.   :472
+```
+
+
+## All around great functions: `str`
+
+**"Quick look" function**
+
+\footnotesize
+
+
+```r
+str(mtcars)
+```
+
+```
+## 'data.frame':	32 obs. of  12 variables:
+##  $ mpg  : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl  : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp : num  160 160 108 258 360 ...
+##  $ hp   : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat : num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt   : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec : num  16.5 17 18.6 19.4 17 ...
+##  $ vs   : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am   : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear : num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb : num  4 4 1 1 2 1 4 2 2 4 ...
+##  $ Class: chr  "Slow" "Medium" "Medium" "Medium" ...
+```
+
+
+## All around great functions: `attributes`
+
+**Learn more about the object**
+
+\footnotesize
+
+
+```r
+attributes(mtcars[1:10,])
+```
+
+```
+## $names
+##  [1] "mpg"   "cyl"   "disp"  "hp"    "drat"  "wt"    "qsec"  "vs"    "am"   
+## [10] "gear"  "carb"  "Class"
+## 
+## $row.names
+##  [1] "Mazda RX4"         "Mazda RX4 Wag"     "Datsun 710"       
+##  [4] "Hornet 4 Drive"    "Hornet Sportabout" "Valiant"          
+##  [7] "Duster 360"        "Merc 240D"         "Merc 230"         
+## [10] "Merc 280"         
+## 
+## $class
+## [1] "data.frame"
+```
+
+
+## All around great functions: `table`
+
+**Quick and dirty tables**
+
+
+```r
+table(mtcars$cyl, mtcars$gear)
+```
+
+```
+##    
+##      3  4  5
+##   4  1  8  2
+##   6  2  4  1
+##   8 12  0  2
+```
+
+
+## Basic functions for vectors
+
+```r
+sum()   
+mean()  
+sd()     # standard deviation
+max()
+min()
+median()
+range()
+rev()    # reverse
+unique() # unique elements
+length()
+```
+
+# Visualizing data
+
+## Plotting points
+
+
+```r
+plot(mtcars$wt, mtcars$mpg,
+     xlab='Weight', ylab='MPG')
+```
+
+![](getting-staRted-figures/plot-points.png) 
+
+
+## Plotting lines
+
+
+```r
+plot(presidents, type='l',
+     xlab = 'Approval Rating')
+```
+
+![](getting-staRted-figures/lines.png) 
+
+
+## Histograms
+
+
+```r
+par(mar=c(5,4,1,1), bg='white')
+hist(mtcars$qsec, xlab='Quarter Mile Time')
+```
+
+![](getting-staRted-figures/hist.png) 
+
+
+## Bar plots
+
+
+```r
+barplot(table(mtcars$Class))
+```
+
+![](getting-staRted-figures/barplot.png) 
+
+
+# Base stats information
+
+## `r*`, `p*`, `q*`, `d*` functions
+
+For all of the statistical distributions, R uses the following naming conventions (incredible how useful this is!):
+
+- `d*` = density/mass function
+- `p*` = cumulative distribution function
+- `q*` = quantile function
+- `r*` = random variate generation
+
+There are quite a few distributions available in base R packages. Just run `?Distributions` to see a full list.
+
+## `rnorm()` example
+
+
+```r
+hist(rnorm(100))
+```
+
+![](getting-staRted-figures/rnorm.png) 
+
+
+
+## Better than base packages
+
+- Manipulating data
+    - [ddply] and [plyr] and now [dplyr]
+- Visualizing data
+    - [ggplot2]
+- Reporting data
+    - [knitr]
+- Interactive online R sessions
+    - [shiny]
+    
+[ddply]: http://cran.r-project.org/web/packages/plyr/plyr.pdf
+[plyr]: http://plyr.had.co.nz/
+[dplyr]: http://blog.rstudio.org/2014/01/17/introducing-dplyr/
+[ggplot2]: http://ggplot2.org/
+[knitr]: http://yihui.name/knitr/
+[shiny]: http://www.rstudio.com/shiny/
+
+
+# Go ExploR
+
+## Resources for learning more
+
+- [Advanced R Programming](http://adv-r.had.co.nz/) 
+    - By one of the best and most important R developers.
+
+- [TwoTorials](http://www.twotorials.com/)
+    - Quick two minute videos on doing things in R.
+
+- [An R Meta Book](http://blog.revolutionanalytics.com/2014/03/an-r-meta-book.html)
+    - A collection of online books.
+
+- [R Bloggers](http://www.r-bloggers.com/)
+    - A mailing list and central hub of all things online regarding R.
+
+# Thanks!
 
 
 
