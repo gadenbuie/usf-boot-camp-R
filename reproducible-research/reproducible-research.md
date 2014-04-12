@@ -62,13 +62,13 @@
 
 ## Why should you care?
 
-> - \alert{Version Control and Management!}
+- **Version Control and Management!**
 
-> - Start to finish, integrate everything
+- Start to finish, integrate everything
 
-> - Write once, output to \alert{anything}
+- Write once, output to **anything**
 
-> - Make collaboration easier[^1] and more scalable
+- Make collaboration easier[^1] and more scalable
 
 [^1]: YMMV
 
@@ -130,7 +130,7 @@
 - Many variants, modern markdown father:
     - <https://daringfireball.net/projects/markdown/>
 
-- Lots of variants, but same idea: \alert{plain-text readable markup}
+- Lots of variants, but same idea: **plain-text readable markup**
     - MultiMarkdown
     - Github-flavored markdown
     - ReST
