@@ -404,7 +404,7 @@ foo <- c(1.2, NA, 2.4, 6.2, 8.3)
 bar <- c(9.1, 7.6, NA, 1.1, 4.7)
 fb <- cbind(foo, bar)
 fb[complete.cases(fb),]
-foo[!is.na(foo)]
+fb[!is.na(foo),]
 
 
 

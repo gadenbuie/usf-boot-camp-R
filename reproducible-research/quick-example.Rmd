@@ -1,0 +1,40 @@
+% Quick knitr example
+% Boot Camp Super Star
+% 2014-04-11
+
+```{r setup, include=FALSE}
+opts_chunk$set(echo=T, warning=F, error=T, message=F, cache=FALSE,
+               fig.path='reproducible-research-figures/', dev='png', dpi=96,
+               tidy=F, prompt=F, collapse=T,
+               resize.height=4, fig.width=7, fig.height=5)
+```
+
+Title
+========================================================
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **Help** toolbar button for more details on using R Markdown).
+
+When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r summary}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r plot-cars, fig.width=7, fig.height=6}
+plot(cars)
+```
+
+Or you can make boxplots with labels:
+
+```{r hist-cars, fig.cap='My special cars histogram'}
+boxplot(cars)
+```
+
+Or we can embed numbers and things inside text. For example, the mean stopping distance for cars traveling faster than 11 miles per hour was 
+`r mean(cars[cars$speed > 10, 'dist'])` mph.
+
+```{r mtcars-table, results='asis'}
+kable(head(mtcars))
+```
