@@ -18,8 +18,9 @@
 # - Training a Model
 # - Fitting a Model
 
-# *Disclaimer*: Draws heavily from <http://statsguys.wordpress.com/2014/01/03/first-post/>
+# *Big thanks*: Draws heavily from <http://statsguys.wordpress.com/2014/01/03/first-post/>
 # and <https://github.com/wehrley/wehrley.github.io/blob/master/SOUPTONUTS.md>.
+# Much more detail available there!
 
 
 ## Who survives the Titanic?

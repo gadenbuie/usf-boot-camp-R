@@ -20,10 +20,11 @@ based on the [Kaggle Titanic Challenge][kaggle-titanic].
 - Training a Model
 - Fitting a Model
 
-\footnotesize
+\scriptsize
 
-*Disclaimer*: Draws heavily from <http://statsguys.wordpress.com/2014/01/03/first-post/>
+*Big thanks*: Draws heavily from <http://statsguys.wordpress.com/2014/01/03/first-post/>
 and <https://github.com/wehrley/wehrley.github.io/blob/master/SOUPTONUTS.md>.
+Much more detail available there!
 
 
 ## Who survives the Titanic?
@@ -477,13 +478,13 @@ train.glm
 ## 
 ## Coefficients:
 ## (Intercept)      Pclass2      Pclass3      Sexmale          Age     ChildYes  
-##    3.182712    -0.593098    -2.127109    -2.506753    -0.020691     0.965256  
+##    3.419178    -0.755809    -2.256159    -2.591527    -0.022988     0.966996  
 ##   MotherYes    EmbarkedQ    EmbarkedS         Fare  
-##    0.093608     0.058169    -0.671614     0.000492  
+##    0.047615    -0.092708    -0.680702     0.000135  
 ## 
 ## Degrees of Freedom: 711 Total (i.e. Null);  702 Residual
 ## Null Deviance:	    947 
-## Residual Deviance: 637 	AIC: 657
+## Residual Deviance: 623 	AIC: 643
 ```
 
 
@@ -508,13 +509,13 @@ anova(train.glm, test='Chisq')
 ## 
 ##          Df Deviance Resid. Df Resid. Dev Pr(>Chi)    
 ## NULL                       711        947             
-## Pclass    2     86.8       709        860  < 2e-16 ***
-## Sex       1    188.9       708        671  < 2e-16 ***
-## Age       1     19.6       707        652  9.5e-06 ***
-## Child     1      4.9       706        647    0.026 *  
-## Mother    1      0.1       705        647    0.760    
-## Embarked  2      9.7       703        637    0.008 ** 
-## Fare      1      0.1       702        637    0.822    
+## Pclass    2     80.5       709        866  < 2e-16 ***
+## Sex       1    208.3       708        658  < 2e-16 ***
+## Age       1     22.3       707        636  2.4e-06 ***
+## Child     1      4.5       706        631    0.034 *  
+## Mother    1      0.0       705        631    0.949    
+## Embarked  2      8.2       703        623    0.016 *  
+## Fare      1      0.0       702        623    0.952    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -565,12 +566,12 @@ glm.train
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold, repeated 3 times) 
 ## 
-## Summary of sample sizes: 641, 641, 640, 641, 640, 641, ... 
+## Summary of sample sizes: 641, 641, 641, 640, 641, 640, ... 
 ## 
 ## Resampling results
 ## 
 ##   ROC  Sens  Spec  ROC SD  Sens SD  Spec SD
-##   0.8  0.9   0.7   0.05    0.06     0.08   
+##   0.9  0.9   0.7   0.05    0.05     0.1    
 ## 
 ## 
 ```
@@ -592,26 +593,26 @@ summary(glm.train)
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -2.671  -0.728  -0.362   0.641   2.475  
+## -2.729  -0.703  -0.347   0.627   2.508  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  3.27714    0.48035    6.82  9.0e-12 ***
-## Pclass2     -0.62824    0.29361   -2.14    0.032 *  
-## Pclass3     -2.17345    0.28058   -7.75  9.5e-15 ***
-## Sexmale     -2.51053    0.21020  -11.94  < 2e-16 ***
-## Age         -0.02083    0.00975   -2.14    0.033 *  
-## ChildYes     0.97452    0.41203    2.37    0.018 *  
-## EmbarkedQ    0.05882    0.40999    0.14    0.886    
-## EmbarkedS   -0.67022    0.26379   -2.54    0.011 *  
+## (Intercept)  3.45461    0.47136    7.33  2.3e-13 ***
+## Pclass2     -0.76580    0.29735   -2.58    0.010 *  
+## Pclass3     -2.27045    0.28684   -7.92  2.5e-15 ***
+## Sexmale     -2.59190    0.21449  -12.08  < 2e-16 ***
+## Age         -0.02303    0.00985   -2.34    0.019 *  
+## ChildYes     0.97083    0.41518    2.34    0.019 *  
+## EmbarkedQ   -0.09598    0.41284   -0.23    0.816    
+## EmbarkedS   -0.67946    0.26390   -2.57    0.010 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
 ##     Null deviance: 947.02  on 711  degrees of freedom
-## Residual deviance: 637.24  on 704  degrees of freedom
-## AIC: 653.2
+## Residual deviance: 623.28  on 704  degrees of freedom
+## AIC: 639.3
 ## 
 ## Number of Fisher Scoring iterations: 5
 ```
@@ -657,9 +658,9 @@ rf.train
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  ROC  Sens  Spec  ROC SD  Sens SD  Spec SD
-##   2     0.9  1     0.6   0.04    0.03     0.09   
-##   4     0.9  0.9   0.6   0.05    0.03     0.09   
-##   7     0.8  0.9   0.7   0.06    0.05     0.1    
+##   2     0.9  0.9   0.6   0.04    0.04     0.09   
+##   4     0.9  0.9   0.6   0.04    0.03     0.09   
+##   7     0.9  0.9   0.7   0.04    0.05     0.08   
 ## 
 ## ROC was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 2.
@@ -694,25 +695,25 @@ confusionMatrix(glm.pred, test$Survived)
 ## 
 ##           Reference
 ## Prediction No Yes
-##        No  95  24
-##        Yes 14  44
+##        No  97  26
+##        Yes 12  42
 ##                                         
 ##                Accuracy : 0.785         
 ##                  95% CI : (0.717, 0.843)
 ##     No Information Rate : 0.616         
 ##     P-Value [Acc > NIR] : 1.07e-06      
 ##                                         
-##                   Kappa : 0.533         
-##  Mcnemar's Test P-Value : 0.144         
+##                   Kappa : 0.528         
+##  Mcnemar's Test P-Value : 0.035         
 ##                                         
-##             Sensitivity : 0.872         
-##             Specificity : 0.647         
-##          Pos Pred Value : 0.798         
-##          Neg Pred Value : 0.759         
+##             Sensitivity : 0.890         
+##             Specificity : 0.618         
+##          Pos Pred Value : 0.789         
+##          Neg Pred Value : 0.778         
 ##              Prevalence : 0.616         
-##          Detection Rate : 0.537         
-##    Detection Prevalence : 0.672         
-##       Balanced Accuracy : 0.759         
+##          Detection Rate : 0.548         
+##    Detection Prevalence : 0.695         
+##       Balanced Accuracy : 0.754         
 ##                                         
 ##        'Positive' Class : No            
 ## 
@@ -733,25 +734,25 @@ confusionMatrix(rf.pred, test$Survived)
 ## 
 ##           Reference
 ## Prediction  No Yes
-##        No  102  26
-##        Yes   7  42
+##        No  105  28
+##        Yes   4  40
 ##                                         
-##                Accuracy : 0.814         
-##                  95% CI : (0.748, 0.868)
+##                Accuracy : 0.819         
+##                  95% CI : (0.754, 0.873)
 ##     No Information Rate : 0.616         
-##     P-Value [Acc > NIR] : 1.06e-08      
+##     P-Value [Acc > NIR] : 3.78e-09      
 ##                                         
-##                   Kappa : 0.584         
-##  Mcnemar's Test P-Value : 0.00173       
+##                   Kappa : 0.591         
+##  Mcnemar's Test P-Value : 4.79e-05      
 ##                                         
-##             Sensitivity : 0.936         
-##             Specificity : 0.618         
-##          Pos Pred Value : 0.797         
-##          Neg Pred Value : 0.857         
+##             Sensitivity : 0.963         
+##             Specificity : 0.588         
+##          Pos Pred Value : 0.789         
+##          Neg Pred Value : 0.909         
 ##              Prevalence : 0.616         
-##          Detection Rate : 0.576         
-##    Detection Prevalence : 0.723         
-##       Balanced Accuracy : 0.777         
+##          Detection Rate : 0.593         
+##    Detection Prevalence : 0.751         
+##       Balanced Accuracy : 0.776         
 ##                                         
 ##        'Positive' Class : No            
 ## 
