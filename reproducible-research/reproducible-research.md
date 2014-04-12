@@ -80,11 +80,11 @@
 
 ## The core workflow
 
-![](images/workflow-core.pdf)
+![](images/workflow-core.png)
 
 ## The full workflow
 
-![](images/workflow-full.pdf)
+![](images/workflow-full.png)
 
 ## Mendeley
 
