@@ -1,20 +1,21 @@
 % getting staRted in R
-% Garrick Aden-Buie // April 11, 2014
+% Garrick Aden-Buie // Friday, March 25, 2016
 % INFORMS Code & Data Boot Camp
-
 
 
 
 
 ## Today we'll talk about
 
-**Files and links in one place: <http://bit.ly/1qjZg55>**
+**Here's what you need to start: [`http://bit.ly/22J72IX`](http://bit.ly/22J72IX)**
 
 - The R Universe
 - Getting set up
 - Working with data
 - Base functions
 - Where to go from here
+
+Find these slides at <https://github.com/gadenbuie/usf-boot-camp-R>
 
 
 # The R Universe
@@ -105,28 +106,12 @@
 
 ```r
 3+3
-```
-
-```
 ## [1] 6
-```
-
-```r
 sqrt(4^4)
-```
-
-```
 ## [1] 16
-```
-
-```r
 2==2
-```
-
-```
 ## [1] TRUE
 ```
-
 
 ## Setting up RStudio
 
@@ -216,20 +201,10 @@ Find packages on [CRAN](http://cran.r-project.org/) or [Rdocumentation](http://w
 x <- 10         # Assigment operator
 y <- 1:x        # Sequence
 y[2]            # Element selection
-```
-
-```
 ## [1] 2
-```
-
-```r
 "str" == 'str'  # Strings
-```
-
-```
 ## [1] TRUE
 ```
-
 
 ## Functions
 
@@ -244,12 +219,8 @@ fun <- function(x=0){
   return(x+42)
 }
 fun(8)
-```
-
-```
 ## [1] 50
 ```
-
 
 ## Data types
 
@@ -274,20 +245,10 @@ Basic data type is a vector, built with `c()` for **concatenate**.
 
 ```r
 x <- c(1, 2, 3, 4, 5); x
-```
-
-```
 ## [1] 1 2 3 4 5
-```
-
-```r
 y <- c(6:10); y
-```
-
-```
 ## [1]  6  7  8  9 10
 ```
-
 
 
 ## Working with vectors
@@ -296,36 +257,14 @@ y <- c(6:10); y
 ```r
 a <- sample(1:5, 10, replace=TRUE)
 length(a)
-```
-
-```
 ## [1] 10
-```
-
-```r
 unique(a)
-```
-
-```
-## [1] 1 3 5 2
-```
-
-```r
+## [1] 1 2 4 3
 length(unique(a))
-```
-
-```
 ## [1] 4
-```
-
-```r
 a * 2
+##  [1] 2 4 2 8 6 4 8 8 2 6
 ```
-
-```
-##  [1]  2  2  6 10 10 10  4  6  2 10
-```
-
 
 
 ## Strings
@@ -336,32 +275,18 @@ Strings use either the `' '` or the `" "` characters.
 ```r
 mystr <- 'Glad you\'re here'
 print(mystr)
-```
-
-```
 ## [1] "Glad you're here"
 ```
-
 
 Use `paste()` to concatenate strings, not `c()`.
 
 
 ```r
 paste(mystr, '!', sep='')
-```
-
-```
 ## [1] "Glad you're here!"
-```
-
-```r
 c(mystr, '!')
-```
-
-```
 ## [1] "Glad you're here" "!"
 ```
-
 
 ## Matrices: binding vectors
 
@@ -370,27 +295,17 @@ Matrices can be built by row binding or column binding vectors:
 
 ```r
 cbind(x,y)   # 5 x 2 matrix
-```
-
-```
 ##      x  y
 ## [1,] 1  6
 ## [2,] 2  7
 ## [3,] 3  8
 ## [4,] 4  9
 ## [5,] 5 10
-```
-
-```r
 rbind(x,y)   # 2 x 5 matrix
-```
-
-```
 ##   [,1] [,2] [,3] [,4] [,5]
 ## x    1    2    3    4    5
 ## y    6    7    8    9   10
 ```
-
 
 ## Matrices: matrix function
 
@@ -399,14 +314,10 @@ Or you can build a matrix using the `matrix()` function:
 
 ```r
 matrix(1:10, nrow=2, ncol=5, byrow=TRUE)
-```
-
-```
 ##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    2    3    4    5
 ## [2,]    6    7    8    9   10
 ```
-
 
 ## Coercion
 
@@ -415,28 +326,12 @@ Vectors and matrices need to have elements of the same type, so R pushes mismatc
 
 ```r
 c('a', 2)
-```
-
-```
 ## [1] "a" "2"
-```
-
-```r
 c(1L, 1.0)
-```
-
-```
 ## [1] 1 1
-```
-
-```r
 c(1L, 1.1)
-```
-
-```
 ## [1] 1.0 1.1
 ```
-
 
 
 ## Recycling
@@ -446,14 +341,10 @@ Recycling occurs when a vector has mismatched dimensions. R will fill in dimensi
 
 ```r
 matrix(1:5, nrow=2, ncol=5, byrow=FALSE)
-```
-
-```
 ##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    3    5    2    4
 ## [2,]    2    4    1    3    5
 ```
-
 
 
 ## Factors
@@ -464,23 +355,13 @@ Factors are a special (at times frustrating) data type in R.
 ```r
 x <- rep(1:3, 2)
 x
-```
-
-```
 ## [1] 1 2 3 1 2 3
-```
-
-```r
 x <- factor(x, levels=c(1, 2, 3), 
             labels=c('Bad', 'Good', 'Best'))
 x
-```
-
-```
 ## [1] Bad  Good Best Bad  Good Best
 ## Levels: Bad Good Best
 ```
-
 
 ## Ordering factors
 
@@ -489,22 +370,12 @@ Order of factors is important for things like plot type, output, etc. Also facto
 
 ```r
 x[order(x)]
-```
-
-```
 ## [1] Bad  Bad  Good Good Best Best
 ## Levels: Bad Good Best
-```
-
-```r
 x[order(x, decreasing=T)]
-```
-
-```
 ## [1] Best Best Good Good Bad  Bad 
 ## Levels: Bad Good Best
 ```
-
 
 ## Ordering factor labels
 
@@ -515,22 +386,12 @@ Compare:
 
 ```r
 factor(x, levels=c('Best', 'Good', 'Bad'))
-```
-
-```
 ## [1] Bad  Good Best Bad  Good Best
 ## Levels: Best Good Bad
-```
-
-```r
 factor(x, labels=c('Best', 'Good', 'Bad'))
-```
-
-```
 ## [1] Best Good Bad  Best Good Bad 
 ## Levels: Best Good Bad
 ```
-
 
 ## Squashing factors
 
@@ -543,24 +404,16 @@ What if you want your drop the "factor" and keep the data?
 
 ```r
 as.numeric(x)
-```
-
-```
 ## [1] 1 2 3 1 2 3
 ```
-
 
 **Keep the labels**
 
 
 ```r
 as.character(x)
-```
-
-```
 ## [1] "Bad"  "Good" "Best" "Bad"  "Good" "Best"
 ```
-
 
 ## Lists
 
@@ -570,16 +423,12 @@ Lists are arbitrary collections of objects. They don't have to be the same type 
 ```r
 mylist <-  list(vec = 1:5, str = "Strings!")
 mylist
-```
-
-```
 ## $vec
 ## [1] 1 2 3 4 5
 ## 
 ## $str
 ## [1] "Strings!"
 ```
-
 
 ## Finding list elements
 
@@ -588,28 +437,12 @@ Use double brackets to return the list item or the `$` operator.
 
 ```r
 mylist[[1]]
-```
-
-```
 ## [1] 1 2 3 4 5
-```
-
-```r
 mylist$str
-```
-
-```
 ## [1] "Strings!"
-```
-
-```r
 mylist$vec[2]
-```
-
-```
 ## [1] 2
 ```
-
 
 ## Data frames
 
@@ -622,18 +455,12 @@ data(diamonds, package='ggplot2')
 head(diamonds)
 ```
 
-
 \footnotesize
 
-|  carat|cut        |color  |clarity  |  depth|  table|  price|     x|     y|     z|
-|------:|:----------|:------|:--------|------:|------:|------:|-----:|-----:|-----:|
-|   0.23|Ideal      |E      |SI2      |   61.5|     55|    326|  3.95|  3.98|  2.43|
-|   0.21|Premium    |E      |SI1      |   59.8|     61|    326|  3.89|  3.84|  2.31|
-|   0.23|Good       |E      |VS1      |   56.9|     65|    327|  4.05|  4.07|  2.31|
-|   0.29|Premium    |I      |VS2      |   62.4|     58|    334|  4.20|  4.23|  2.63|
-|   0.31|Good       |J      |SI2      |   63.3|     58|    335|  4.34|  4.35|  2.75|
-|   0.24|Very Good  |J      |VVS2     |   62.8|     57|    336|  3.94|  3.96|  2.48|
 
+```
+## Error in eval(expr, envir, enclos): could not find function "kable"
+```
 
 
 ## Building a data frame
@@ -645,18 +472,14 @@ Data frames require vectors of the same dimension, but not the same type.
 mydf <- data.frame(My.Numbers = sample(1:10, 6),
                    My.Factors = x)
 mydf
-```
-
-```
 ##   My.Numbers My.Factors
-## 1          5        Bad
+## 1          4        Bad
 ## 2          9       Good
 ## 3          8       Best
-## 4          3        Bad
-## 5          2       Good
-## 6         10       Best
+## 4          6        Bad
+## 5         10       Good
+## 6          7       Best
 ```
-
 
 
 ## Naming columns and rows
@@ -666,12 +489,8 @@ Data frames and matrices can have named rows and columns.
 
 ```r
 names(mydf)
-```
-
-```
 ## [1] "My.Numbers" "My.Factors"
 ```
-
 
 ```r
 colnames(mydf) <- c('Num', 'Fak')  # Set column names
@@ -683,12 +502,8 @@ To find the dimensions of a matrix or data frame (*rows*, *cols*):
 
 ```r
 dim(mydf)
-```
-
-```
 ## [1] 6 2
 ```
-
 
 
 ## Reading and writing data in data frames
@@ -722,12 +537,8 @@ if(a > 11){
 } else {
   print('On the money!')
 }
-```
-
-```
 ## [1] "On the money!"
 ```
-
 
 ## `for` loops
 
@@ -738,12 +549,8 @@ for(i in 1:10){
   z <- c(z, i^2)
 }
 z
-```
-
-```
 ##  [1]   1   4   9  16  25  36  49  64  81 100
 ```
-
 
 ## `while` loops
 
@@ -758,12 +565,8 @@ while(i <= 5){
 }
 
 z
-```
-
-```
 ## [1]   1   8  27  64 125
 ```
-
 
 
 # Manipulating data
@@ -779,18 +582,12 @@ If entering `mtcars` doesn't work, run `data(mtcars)` first.
 head(mtcars)
 ```
 
-
 \tiny
 
-|id                 |   mpg|  cyl|  disp|   hp|  drat|    wt|  qsec|  vs|  am|  gear|  carb|
-|:------------------|-----:|----:|-----:|----:|-----:|-----:|-----:|---:|---:|-----:|-----:|
-|Mazda RX4          |  21.0|    6|   160|  110|  3.90|  2.62|  16.5|   0|   1|     4|     4|
-|Mazda RX4 Wag      |  21.0|    6|   160|  110|  3.90|  2.88|  17.0|   0|   1|     4|     4|
-|Datsun 710         |  22.8|    4|   108|   93|  3.85|  2.32|  18.6|   1|   1|     4|     1|
-|Hornet 4 Drive     |  21.4|    6|   258|  110|  3.08|  3.21|  19.4|   1|   0|     3|     1|
-|Hornet Sportabout  |  18.7|    8|   360|  175|  3.15|  3.44|  17.0|   0|   0|     3|     2|
-|Valiant            |  18.1|    6|   225|  105|  2.76|  3.46|  20.2|   1|   0|     3|     1|
 
+```
+## Error in eval(expr, envir, enclos): could not find function "kable"
+```
 
 ## Selecting rows and columns
 
@@ -807,37 +604,25 @@ For example, `mtcars[1,2]` returns row 1, column 2:
 
 ```r
 mtcars[1,2]
-```
-
-```
 ## [1] 6
 ```
-
 
 Select a whole row by leaving the column blank
 
 
 ```r
 mtcars[1,]
-```
-
-```
 ##           mpg cyl disp  hp drat   wt qsec vs am gear carb
 ## Mazda RX4  21   6  160 110  3.9 2.62 16.5  0  1    4    4
 ```
-
 
 or similarly select a column by leaving the row condition blank
 
 
 ```r
 mtcars[,'qsec'][1:10]
-```
-
-```
 ##  [1] 16.5 17.0 18.6 19.4 17.0 20.2 15.8 20.0 22.9 18.3
 ```
-
 
 ## More ways to select rows and columns
 
@@ -863,18 +648,12 @@ gas_guzzlers <- mtcars[mtcars$mpg < 20,]
 head(gas_guzzlers)
 ```
 
-
 \tiny
 
-|id                 |   mpg|  cyl|  disp|   hp|  drat|    wt|  qsec|  vs|  am|  gear|  carb|
-|:------------------|-----:|----:|-----:|----:|-----:|-----:|-----:|---:|---:|-----:|-----:|
-|Hornet Sportabout  |  18.7|    8|   360|  175|  3.15|  3.44|  17.0|   0|   0|     3|     2|
-|Valiant            |  18.1|    6|   225|  105|  2.76|  3.46|  20.2|   1|   0|     3|     1|
-|Duster 360         |  14.3|    8|   360|  245|  3.21|  3.57|  15.8|   0|   0|     3|     4|
-|Merc 280           |  19.2|    6|   168|  123|  3.92|  3.44|  18.3|   1|   0|     4|     4|
-|Merc 280C          |  17.8|    6|   168|  123|  3.92|  3.44|  18.9|   1|   0|     4|     4|
-|Merc 450SE         |  16.4|    8|   276|  180|  3.07|  4.07|  17.4|   0|   0|     3|     3|
 
+```
+## Error in eval(expr, envir, enclos): could not find function "kable"
+```
 
 ## Subsetting
 
@@ -886,16 +665,12 @@ gas_guzzlers <- mtcars[mtcars$mpg < 20 & mtcars$cyl == 6,]
 head(gas_guzzlers)
 ```
 
-
 \tiny
 
-|id            |   mpg|  cyl|  disp|   hp|  drat|    wt|  qsec|  vs|  am|  gear|  carb|
-|:-------------|-----:|----:|-----:|----:|-----:|-----:|-----:|---:|---:|-----:|-----:|
-|Valiant       |  18.1|    6|   225|  105|  2.76|  3.46|  20.2|   1|   0|     3|     1|
-|Merc 280      |  19.2|    6|   168|  123|  3.92|  3.44|  18.3|   1|   0|     4|     4|
-|Merc 280C     |  17.8|    6|   168|  123|  3.92|  3.44|  18.9|   1|   0|     4|     4|
-|Ferrari Dino  |  19.7|    6|   145|  175|  3.62|  2.77|  15.5|   0|   1|     5|     6|
 
+```
+## Error in eval(expr, envir, enclos): could not find function "kable"
+```
 
 ## Setting values based on subsets
 
@@ -907,26 +682,18 @@ mtcars[mtcars$qsec < 17, 'Class'] <- 'Slow'
 mtcars[mtcars$qsec > 17, 'Class'] <- 'Medium'
 mtcars[mtcars$qsec > 20, 'Class'] <- 'Fast'
 table(mtcars$Class)
-```
-
-```
 ## 
 ##   Fast Medium   Slow 
 ##      3     20      9
 ```
-
 
 Any expression that evaluates to `TRUE` or `FALSE` can be used as a column or row condition.
 
 
 ```r
 mtcars$qsec[1:10] > 17
-```
-
-```
 ##  [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE
 ```
-
 
 ## Dealing with missing values
 
@@ -938,23 +705,13 @@ foo <- c(1.2, NA, 2.4, 6.2, 8.3)
 bar <- c(9.1, 7.6, NA, 1.1, 4.7)
 fb <- cbind(foo, bar)
 fb[complete.cases(fb),]
-```
-
-```
 ##      foo bar
 ## [1,] 1.2 9.1
 ## [2,] 6.2 1.1
 ## [3,] 8.3 4.7
-```
-
-```r
 foo[!is.na(foo)]
-```
-
-```
 ## [1] 1.2 2.4 6.2 8.3
 ```
-
 
 # Base functions
 
@@ -965,9 +722,6 @@ foo[!is.na(foo)]
 
 ```r
 summary(mtcars[,1:3])
-```
-
-```
 ##       mpg            cyl            disp    
 ##  Min.   :10.4   Min.   :4.00   Min.   : 71  
 ##  1st Qu.:15.4   1st Qu.:4.00   1st Qu.:121  
@@ -976,7 +730,6 @@ summary(mtcars[,1:3])
 ##  3rd Qu.:22.8   3rd Qu.:8.00   3rd Qu.:326  
 ##  Max.   :33.9   Max.   :8.00   Max.   :472
 ```
-
 
 ## All around great functions: `str`
 
@@ -987,9 +740,6 @@ summary(mtcars[,1:3])
 
 ```r
 str(mtcars)
-```
-
-```
 ## 'data.frame':	32 obs. of  12 variables:
 ##  $ mpg  : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
 ##  $ cyl  : num  6 6 4 6 8 6 8 4 4 6 ...
@@ -1005,7 +755,6 @@ str(mtcars)
 ##  $ Class: chr  "Slow" "Medium" "Medium" "Medium" ...
 ```
 
-
 ## All around great functions: `attributes`
 
 **Learn more about the object**
@@ -1015,9 +764,6 @@ str(mtcars)
 
 ```r
 attributes(mtcars[1:10,])
-```
-
-```
 ## $names
 ##  [1] "mpg"   "cyl"   "disp"  "hp"    "drat"  "wt"    "qsec"  "vs"    "am"   
 ## [10] "gear"  "carb"  "Class"
@@ -1032,7 +778,6 @@ attributes(mtcars[1:10,])
 ## [1] "data.frame"
 ```
 
-
 ## All around great functions: `table`
 
 **Quick and dirty tables**
@@ -1040,16 +785,12 @@ attributes(mtcars[1:10,])
 
 ```r
 table(mtcars$cyl, mtcars$gear)
-```
-
-```
 ##    
 ##      3  4  5
 ##   4  1  8  2
 ##   6  2  4  1
 ##   8 12  0  2
 ```
-
 
 ## Basic functions for vectors
 
@@ -1076,8 +817,7 @@ plot(mtcars$wt, mtcars$mpg,
      xlab='Weight', ylab='MPG')
 ```
 
-![](getting-staRted-figures/plot-points.png) 
-
+![](getting-staRted-figures/plot-points-1.png)
 
 ## Plotting lines
 
@@ -1087,8 +827,7 @@ plot(presidents, type='l',
      xlab = 'Approval Rating')
 ```
 
-![](getting-staRted-figures/lines.png) 
-
+![](getting-staRted-figures/lines-1.png)
 
 ## Histograms
 
@@ -1098,8 +837,7 @@ par(mar=c(5,4,1,1), bg='white')
 hist(mtcars$qsec, xlab='Quarter Mile Time')
 ```
 
-![](getting-staRted-figures/hist.png) 
-
+![](getting-staRted-figures/hist-1.png)
 
 ## Bar plots
 
@@ -1108,8 +846,7 @@ hist(mtcars$qsec, xlab='Quarter Mile Time')
 barplot(table(mtcars$Class))
 ```
 
-![](getting-staRted-figures/barplot.png) 
-
+![](getting-staRted-figures/barplot-1.png)
 
 # Base stats information
 
@@ -1131,8 +868,7 @@ There are quite a few distributions available in base R packages. Just run `?Dis
 hist(rnorm(100))
 ```
 
-![](getting-staRted-figures/rnorm.png) 
-
+![](getting-staRted-figures/rnorm-1.png)
 
 
 ## Better than base packages

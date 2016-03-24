@@ -1,15 +1,21 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 % getting staRted in R
-% Garrick Aden-Buie // April 11, 2014
+% Garrick Aden-Buie // Friday, March 25, 2016
 % INFORMS Code & Data Boot Camp
 
 ```{r setup, include=FALSE}
-opts_chunk$set(echo=T, warning=F, error=T, message=F, cache=FALSE,
+knitr::opts_chunk$set(echo=T, warning=F, error=T, message=F, cache=FALSE,
                fig.path='getting-staRted-figures/', dev='png', dpi=96, par=TRUE,
                tidy=F, prompt=F, collapse=T,
-               resize.height=4, fig.width=7, fig.height=5)
+               resize.height=4, fig.width=7, fig.height=5,
+               out.format = 'markdown')
 options(width=80, digits=3)
 
-knit_hooks$set(par=function(before, options, envir){
+knitr::knit_hooks$set(par=function(before, options, envir){
 if (before && options$fig.show!='none'){
   par(mar=c(5,4,1,1), bg='white')
   }
@@ -20,13 +26,15 @@ if (before && options$fig.show!='none'){
 
 ## Today we'll talk about
 
-**Files and links in one place: <http://bit.ly/1qjZg55>**
+**Here's what you need to start: [`http://bit.ly/22J72IX`](http://bit.ly/22J72IX)**
 
 - The R Universe
 - Getting set up
 - Working with data
 - Base functions
 - Where to go from here
+
+Find these slides at <https://github.com/gadenbuie/usf-boot-camp-R>
 
 
 # The R Universe
