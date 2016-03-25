@@ -26,7 +26,6 @@ if (before && options$fig.show!='none'){
 
 ## Today we'll talk about
 
-**Here's what you need to start: [`http://bit.ly/22J72IX`](http://bit.ly/22J72IX)**
 
 - The R Universe
 - Getting set up
@@ -36,6 +35,16 @@ if (before && options$fig.show!='none'){
 
 Find these slides at <https://github.com/gadenbuie/usf-boot-camp-R>
 
+## Here's what you need to start
+
+- Install **R**
+    - [cloud.r-project.org](https://cloud.r-project.org/)
+    
+- Install **R-Studio** 
+    - [rstudio.com](https://www.rstudio.com/)
+    
+- Download the companion code to this talk
+    - [`http://bit.ly/1q5Rfpy`](http://bit.ly/1q5Rfpy)
 
 # The R Universe
 
@@ -151,10 +160,6 @@ sqrt(4^4)
 
 - For really odd messages, copy and paste error message into Google
 
-- General learning
-    - [An R Meta Book](http://blog.revolutionanalytics.com/2014/03/an-r-meta-book.html)
-    - [R Bloggers](http://www.r-bloggers.com/)
-    
 ## Working directory
 
 Set working directory with
@@ -404,7 +409,7 @@ head(diamonds)
 \footnotesize
 
 ```{r df-diamonds2, results='asis', echo=FALSE}
-kable(head(diamonds))
+knitr::kable(head(diamonds))
 ```
 
 
@@ -511,7 +516,7 @@ head(mtcars)
 \tiny
 
 ```{r mtcars, results='asis', echo=FALSE}
-kable(head(mtcars))
+knitr::kable(head(mtcars))
 ```
 
 ## Selecting rows and columns
@@ -568,7 +573,7 @@ head(gas_guzzlers)
 \tiny
 
 ```{r gas-guzzle-table, results='asis', echo=FALSE}
-kable(head(gas_guzzlers))
+knitr::kable(head(gas_guzzlers))
 ```
 
 ## Subsetting
@@ -583,7 +588,7 @@ head(gas_guzzlers)
 \tiny
 
 ```{r gas-guzzle-table6, results='asis', echo=FALSE}
-kable(head(gas_guzzlers))
+knitr::kable(head(gas_guzzlers))
 ```
 
 ## Setting values based on subsets
@@ -751,6 +756,7 @@ hist(rnorm(100))
 
 - [R Bloggers](http://www.r-bloggers.com/)
     - A mailing list and central hub of all things online regarding R.
+    
 
 # Thanks!
 

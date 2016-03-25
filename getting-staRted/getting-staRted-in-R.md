@@ -7,7 +7,6 @@
 
 ## Today we'll talk about
 
-**Here's what you need to start: [`http://bit.ly/22J72IX`](http://bit.ly/22J72IX)**
 
 - The R Universe
 - Getting set up
@@ -17,6 +16,16 @@
 
 Find these slides at <https://github.com/gadenbuie/usf-boot-camp-R>
 
+## Here's what you need to start
+
+- Install **R**
+    - [cloud.r-project.org](https://cloud.r-project.org/)
+    
+- Install **R-Studio** 
+    - [rstudio.com](https://www.rstudio.com/)
+    
+- Download the companion code to this talk
+    - [`http://bit.ly/1q5Rfpy`](http://bit.ly/1q5Rfpy)
 
 # The R Universe
 
@@ -136,10 +145,6 @@ sqrt(4^4)
 
 - For really odd messages, copy and paste error message into Google
 
-- General learning
-    - [An R Meta Book](http://blog.revolutionanalytics.com/2014/03/an-r-meta-book.html)
-    - [R Bloggers](http://www.r-bloggers.com/)
-    
 ## Working directory
 
 Set working directory with
@@ -259,11 +264,11 @@ a <- sample(1:5, 10, replace=TRUE)
 length(a)
 ## [1] 10
 unique(a)
-## [1] 1 2 4 3
+## [1] 4 5 3 1 2
 length(unique(a))
-## [1] 4
+## [1] 5
 a * 2
-##  [1] 2 4 2 8 6 4 8 8 2 6
+##  [1]  8 10 10  6 10  2  2  4  2  2
 ```
 
 
@@ -458,9 +463,14 @@ head(diamonds)
 \footnotesize
 
 
-```
-## Error in eval(expr, envir, enclos): could not find function "kable"
-```
+ carat  cut         color   clarity    depth   table   price      x      y      z
+------  ----------  ------  --------  ------  ------  ------  -----  -----  -----
+  0.23  Ideal       E       SI2         61.5      55     326   3.95   3.98   2.43
+  0.21  Premium     E       SI1         59.8      61     326   3.89   3.84   2.31
+  0.23  Good        E       VS1         56.9      65     327   4.05   4.07   2.31
+  0.29  Premium     I       VS2         62.4      58     334   4.20   4.23   2.63
+  0.31  Good        J       SI2         63.3      58     335   4.34   4.35   2.75
+  0.24  Very Good   J       VVS2        62.8      57     336   3.94   3.96   2.48
 
 
 ## Building a data frame
@@ -473,12 +483,12 @@ mydf <- data.frame(My.Numbers = sample(1:10, 6),
                    My.Factors = x)
 mydf
 ##   My.Numbers My.Factors
-## 1          4        Bad
-## 2          9       Good
-## 3          8       Best
+## 1          3        Bad
+## 2         10       Good
+## 3          2       Best
 ## 4          6        Bad
-## 5         10       Good
-## 6          7       Best
+## 5          9       Good
+## 6          1       Best
 ```
 
 
@@ -585,9 +595,14 @@ head(mtcars)
 \tiny
 
 
-```
-## Error in eval(expr, envir, enclos): could not find function "kable"
-```
+                      mpg   cyl   disp    hp   drat     wt   qsec   vs   am   gear   carb
+------------------  -----  ----  -----  ----  -----  -----  -----  ---  ---  -----  -----
+Mazda RX4            21.0     6    160   110   3.90   2.62   16.5    0    1      4      4
+Mazda RX4 Wag        21.0     6    160   110   3.90   2.88   17.0    0    1      4      4
+Datsun 710           22.8     4    108    93   3.85   2.32   18.6    1    1      4      1
+Hornet 4 Drive       21.4     6    258   110   3.08   3.21   19.4    1    0      3      1
+Hornet Sportabout    18.7     8    360   175   3.15   3.44   17.0    0    0      3      2
+Valiant              18.1     6    225   105   2.76   3.46   20.2    1    0      3      1
 
 ## Selecting rows and columns
 
@@ -651,9 +666,14 @@ head(gas_guzzlers)
 \tiny
 
 
-```
-## Error in eval(expr, envir, enclos): could not find function "kable"
-```
+                      mpg   cyl   disp    hp   drat     wt   qsec   vs   am   gear   carb
+------------------  -----  ----  -----  ----  -----  -----  -----  ---  ---  -----  -----
+Hornet Sportabout    18.7     8    360   175   3.15   3.44   17.0    0    0      3      2
+Valiant              18.1     6    225   105   2.76   3.46   20.2    1    0      3      1
+Duster 360           14.3     8    360   245   3.21   3.57   15.8    0    0      3      4
+Merc 280             19.2     6    168   123   3.92   3.44   18.3    1    0      4      4
+Merc 280C            17.8     6    168   123   3.92   3.44   18.9    1    0      4      4
+Merc 450SE           16.4     8    276   180   3.07   4.07   17.4    0    0      3      3
 
 ## Subsetting
 
@@ -668,9 +688,12 @@ head(gas_guzzlers)
 \tiny
 
 
-```
-## Error in eval(expr, envir, enclos): could not find function "kable"
-```
+                 mpg   cyl   disp    hp   drat     wt   qsec   vs   am   gear   carb
+-------------  -----  ----  -----  ----  -----  -----  -----  ---  ---  -----  -----
+Valiant         18.1     6    225   105   2.76   3.46   20.2    1    0      3      1
+Merc 280        19.2     6    168   123   3.92   3.44   18.3    1    0      4      4
+Merc 280C       17.8     6    168   123   3.92   3.44   18.9    1    0      4      4
+Ferrari Dino    19.7     6    145   175   3.62   2.77   15.5    0    1      5      6
 
 ## Setting values based on subsets
 
@@ -905,6 +928,7 @@ hist(rnorm(100))
 
 - [R Bloggers](http://www.r-bloggers.com/)
     - A mailing list and central hub of all things online regarding R.
+    
 
 # Thanks!
 
